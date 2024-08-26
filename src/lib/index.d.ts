@@ -79,6 +79,7 @@ interface Signal {
 	Connect(callback: () => unknown | void): Connection;
 }
 type EventLike = Callback | Signal;
+type CleanUpCallback = () => void;
 declare const Internal: Internal;
 declare namespace Iris {
 	export type WidgetID = string;
@@ -150,7 +151,7 @@ declare namespace Iris {
 
 		get(): T;
 		set(newValue: T): void;
-		onChange(connect: (value: T) => void): void;
+		onChange(connect: (value: T) => void): CleanUpCallback;
 	}
 
 	export function State<T>(initialState: T): State<T>;
